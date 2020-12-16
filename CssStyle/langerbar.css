@@ -26,7 +26,7 @@
 
 .row{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
 } 
 
         
@@ -43,9 +43,7 @@
     .col-md-10{width: 83.333333%;}
     .col-md-11{width: 91.666666%;}
     .col-md-12{width: 100%;       
-         display: flex;
-        margin: auto;
-        text-align: center;}
+    text-align: center;}
           
 }
 @media screen and (min-width: 1024px){
@@ -125,8 +123,7 @@ body{
 
 /* bannerblock */
 .bannerblock{
-    background-color: rgb(36, 58, 90);
-    background-image:url(/langerbar/images/page01_img01.png);
+    background:url('/langerbar/images/page01_img01.png'), rgb(36, 58, 90);
     background-repeat: no-repeat;
     background-size: 140%;
     background-position: center center;
