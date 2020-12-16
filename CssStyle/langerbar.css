@@ -126,7 +126,7 @@ body{
 /* bannerblock */
 .bannerblock{
     background-color: rgb(36, 58, 90);
-    background-image:url(/HTML+CSS/HTML+CSS/langerbar/images/page01_img01.png);
+    background-image:url(/langerbar/images/page01_img01.png);
     background-repeat: no-repeat;
     background-size: 140%;
     background-position: center center;
