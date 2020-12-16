@@ -111,9 +111,10 @@ body{
 .headerblock-tele a:hover{
     color: rgb(255, 136, 0);
 }
-.headerblock-brand a{
+.headerblock-brand h1{
     font-size: 38px;
     color: white;
+    font-weight: lighter;
 }
 .headerblock-tele a{
     font-size: 20px;
