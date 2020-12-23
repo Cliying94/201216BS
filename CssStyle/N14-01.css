@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color:white;
+}
+.wrap{
+    display: flex;
+    color: #ffffff;
+    background-color: rgb(47, 46, 54);
+}
+.about, .input{
+    width: 50%;
+    padding: 100px;
+    box-sizing: border-box;
+}
+.title h1, .title h3, .title p{
+    padding: 20px 0px;
+    box-sizing: border-box;
+} 
+input{
+    display: flex;
+    border: transparent;
+    border-bottom: gray solid 1px;
+
+}
+h1{
+    color: rgb(154, 169, 235);
+}
+

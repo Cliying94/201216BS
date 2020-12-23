@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="CssStyle/pokemon.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+            <h1>寶可夢圖鑑列表</h1>
+    </div>
+    <div class="bar">
+            <button class="main-button" onclick="fetchPokemon()">
+                <p>載入寶可夢圖鑑列表</p>
+            </button>
+            <button class="main-button" onclick="fetchPokemon_appendChild()">
+                <p>載入寶可夢圖鑑列表</p>
+            </button>
+            <button class="main-button" onclick="resetbutton()">
+                <p>重設畫面</p>
+            </button>
+    </div>
+    <div id="container"></div>
+
+    <script>
+        var container = document.getElementById('container');
+
+        window.onload = appendPokemon();
+
+        function appendPokemon() {
+            let img = document.createElement('img');
+            img.setAttribute('src', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png');
+            container.appendChild(img);
+        }
+
+        function fetchPokemon() {
+            let pokemons = '';
+            for (let i = 1; i < 890; i++) {
+                fileName = i.toString().padStart(3, '0');
+                pathFile = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${fileName}.png`;
+                pokemonImg = `<img src='${pathFile}'>`;
+                pokemons += pokemonImg;
+            }
+            container.innerHTML = pokemons;
+        }
+
+        function fetchPokemon_appendChild() {
+            for (let i = 1; i < 890; i++) { 
+                fileName = i.toString().padStart(3, '0');
+                pathFile = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${fileName}.png`;
+
+                let img = document.createElement("img");
+
+                img.src = pathFile;
+                container.appendChild(img);
+            }
+        }
+        function resetbutton(){
+            let pokemons = '';
+            container.innerHTML = pokemons;           
+        }
+    </script>
+
+
+</body>
+
+</html>
