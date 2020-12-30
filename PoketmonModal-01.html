@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>PokemonModal</title>
+    <style>
+        .card {
+            border: 1px solid gray;
+            border-radius: 20px;
+            width: 18em;
+            display: flex;
+            margin: auto;
+            text-align: center;
+
+        }
+
+        .card-img {
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        img {
+            
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="card-produce">產生寶可夢列表</button>
+    <h1>PokemonModal</h1>
+    <!-- Button trigger modal -->
+    <div class="container-fluid">
+        <div class="jumbotron">Pokemon Template</div>
+        <div class="row"></div>
+    </div>
+    <template id="cardPokemon">
+        <div class="card">
+            <div class="card-img">
+                <img src="https://picsum.photos/300/300/?random=1">
+            </div>
+            <div class="card-body">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PokemonModal">
+                    PokemonName
+                </button>
+            </div>
+        </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="PokemonModal" tabindex="-1" aria-labelledby="PokemonModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="PokemonModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="" alt="">
+                        <ul></ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script>
+
+        let body = document.querySelector("body");
+        let row = document.querySelector(".row");
+
+        let pokemonNewArray = [];
+
+        window.onload = () => getPokemonJSON();
+
+        document.querySelector(".card-produce").addEventListener("click", function () {
+
+            addStructure(pokemonNewArray);
+        });
+        //生成資料結構
+        function TransformData(dataArray) {
+            dataArray.forEach(item => {
+                let id = item.id.toString().padStart(3, "0");
+                let name = item.name.chinese;
+                let hp = item.base.HP;
+                let attack = item.base.Attack;
+                let defense = item.base.Defense;
+                let sp_attack = item.base["Sp. Attack"];
+                let sp_defense = item.base["Sp. Defense"];
+                let speed = item.base.Speed
+                let img = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png`;
+
+                let pokemon = { Img: img, ID: id, Name: name, HP: hp, Attack: attack, Defense: defense, SpAttack: sp_attack, SpDefense: sp_defense };
+
+                pokemonNewArray.push(pokemon);
+            });
+        }
+
+
+        //生成HTML結構
+        function addStructure(cardArray) {
+            let row = document.querySelector(".row");
+
+            cardArray.forEach((item) => {
+
+
+                //要全部找出來再塞進去
+                let card = document.querySelector("#cardPokemon");
+                let cloneCard = card.content.cloneNode(true);
+
+                cloneCard.querySelector("img").src = item.Img;
+
+
+                cloneCard.querySelector("button").innerHTML = item.Name;
+                cloneCard.querySelector("button").addEventListener("click", function () {
+                    //removing priviously modal data(li)
+                    document.querySelector("ul").innerHTML = [];
+
+                    let modal = document.querySelector("#PokemonModal");
+                    modal.querySelector("h5").innerHTML = item.Name;
+                    modal.querySelector("img").src = item.Img;
+
+                    //object transfer to array
+                    let unitKeys = [];
+                    let unitValues = [];
+                    Object.keys(item).forEach((x) => {
+                        unitKeys.push(x);
+                    });
+                    Object.values(item).forEach((x) => {
+                        unitValues.push(x);
+                    });
+                    let pokemonUnit = [unitKeys, unitValues];
+
+                    for (i = 1; i < unitValues.length; i++) {
+                        let contentnull = [];
+                        let li = document.createElement("li");
+                        li.innerText = `${pokemonUnit[0][i]}:${pokemonUnit[1][i]}`;
+                        document.querySelector("ul").appendChild(li);
+                        debugger;
+                    }
+
+                });
+                row.append(cloneCard);
+
+            });
+
+        }
+
+
+        //導入JSON資料
+        function getPokemonJSON() {
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                pokemonArray = JSON.parse(this.responseText);
+                TransformData(pokemonArray);
+            }
+            xhr.open("GET", "https://raw.githubusercontent.com/apprunner/pokemon.json/master/pokedex.json");
+            xhr.send();
+        }
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>
