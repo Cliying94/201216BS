@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>PokemonModal</title>
+    <style>
+        .card {
+            border: 1px solid gray;
+            width: 18em;
+            display: flex;
+            margin: auto;
+            text-align: center;
+        }
+
+        .card-img {
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="card-produce">產生寶可夢列表</button>
+    <h1>PokemonModal</h1>
+    <script>
+        let body = document.querySelector("body");
+        let row = document.querySelector(".row");
+
+        let pokemonNewArray = [];
+
+        window.onload = () => getPokemonJSON();
+
+        document.querySelector(".card-produce").addEventListener("click", function () {
+
+            getData(pokemonNewArray);
+        });
+        //生成資料結構
+        function TransformData(dataArray) {
+            dataArray.forEach(item => {
+                let id = item.id.toString().padStart(3, "0");
+                let name = item.name.chinese;
+                let hp = item.base.HP;
+                let attack = item.base.Attack;
+                let defense = item.base.defense;
+                let sp_attack = item.base["SP. Attack"];
+                let sp_defense = item.base.Speed;
+                let img = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png`;
+
+                let pokemon = { Img: img, ID: id, Name: name, HP: hp, Attack: attack, Defense: defense, SpAttack: sp_attack, SpDefense: sp_defense };
+
+                pokemonNewArray.push(pokemon);
+            });
+        }
+
+        function getData(dataArray) {
+
+            dataArray.forEach((item) => {
+                let rowArray = Object(item);
+                addStructure(rowArray);
+            })
+
+        }
+        //生成HTML結構
+        function addStructure(cardArray) {
+            let div = document.createElement("div");
+            let row = document.querySelector(".row");
+
+            row.append(div);
+            div.setAttribute("class", "card");
+
+            cardArray.forEach((item) => {
+                //理論上這裡只要顯示1.帶神奇寶貝名的button2.圖片
+                //點button才出現完整資料
+                let button = document.createElement("button");
+                button.innerHTML =item;
+                let card = document.createElement("div");
+                card.setAttribute("class", "card");
+                let divcardappend = document.createElement("div");
+                div.append(divcardappend, button[1], item);
+
+
+                //let divcardappend = document.createElement("div");
+
+                // divcardappend.setAttribute("class", "card-img");
+
+                // let divCardBody = document.createElement("div");
+                // card.append(divCardBody).setAttribute("class", "card-body");
+
+                // setAttribute(button, { type: "button", class: "btn btn-primary", [data - bs - toggle]: "modal", [data - bs - target]: "#exampleModal" })
+                // document.getElementsByClassName("card-img").innerHTML = `<img src="${item.img}">`;
+
+            });
+
+
+        }
+
+
+        //導入JSON資料
+        function getPokemonJSON() {
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                pokemonArray = JSON.parse(this.responseText);
+                TransformData(pokemonArray);
+            }
+            xhr.open("GET", "https://raw.githubusercontent.com/apprunner/pokemon.json/master/pokedex.json");
+            xhr.send();
+        }
+    </script>
+
+
+
+    <!-- Button trigger modal -->
+    <div class="row">
+        <div class="card">
+            <div class="card-img">
+                <img src="https://picsum.photos/300/300/?random=1">
+            </div>
+            <div class="card-body">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    PokemonName
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pokemon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
