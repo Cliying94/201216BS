@@ -11,16 +11,18 @@
 
 <body>
     <p>Choose your Birthday!
-        <input type="text" id="yearPicker">/
+        <!-- <input type="text" id="yearPicker">/
         <input type="text" id="monthPicker">/
-        <input type="text" id="datePicker">/
+        <input type="text" id="datePicker">/ -->
+        <input type="date" name="date">
 
     </p>
     <button id="countAnswer">Click!</button>
     <script>
 
-
-
+        let constellation = "cancer";
+        let answerNumber = 5;
+        let listStarSign = [Aquarius, Pieces, Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn];
 
 
 
@@ -28,13 +30,13 @@
 
             let month = document.getElementById("monthPicker").value;
 
-                    alert(month);
+            alert(month);
 
 
             //count number
-            //Aquarius, Pieces, Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn
-            let constellation = "cancer";
-            let answerNumber = 5;
+            
+
+
             //get response form API
             $.ajax({
                 type: "Get",

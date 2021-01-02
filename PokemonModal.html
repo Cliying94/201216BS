@@ -58,7 +58,7 @@
         }
 
         .card-img img:hover {
-            transition-duration:  1s;
+            transition-duration: 1s;
             filter: contrast(100%) brightness(100%);
         }
 
@@ -108,7 +108,7 @@
     <template id="cardPokemon">
         <div class="card">
             <div class="card-img">
-                <img src="https://picsum.photos/300/300/?random=1">
+                <img id="hoversound" src="https://picsum.photos/300/300/?random=1">
             </div>
             <div class="card-body">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PokemonModal">
@@ -149,7 +149,16 @@
 
         let pokemonNewArray = [];
 
+        // let soundenter = new Audio("./media/entersound.mp3");
+        // document.getElementById("hoversound").addEventListener("mouseover",function(event){
+        //     event.soundenter.play();
+        // })
+
+
+
         window.onload = () => getPokemonJSON();
+
+
 
         document.querySelector(".card-produce").addEventListener("click", function () {
 
@@ -173,7 +182,6 @@
                 pokemonNewArray.push(pokemon);
             });
         }
-
 
         //生成HTML結構
         function addStructure(cardArray) {
@@ -221,7 +229,6 @@
                 row.append(cloneCard);
 
             });
-
         }
 
 
