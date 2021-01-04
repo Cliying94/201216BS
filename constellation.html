@@ -14,27 +14,61 @@
         <!-- <input type="text" id="yearPicker">/
         <input type="text" id="monthPicker">/
         <input type="text" id="datePicker">/ -->
-        <input type="date" name="date">
+        <input type="date" name="date" id="input">
 
     </p>
     <button id="countAnswer">Click!</button>
     <script>
 
-        let constellation = "cancer";
-        let answerNumber = 5;
-        let listStarSign = [Aquarius, Pieces, Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn];
+        let constellation;
+        let answerNumber;
+        let listStarSign = {
+            0121: "Aquarius",
+            0220: "Pieces",
+            0321: "Aries",
+            0420: "Taurus",
+            0521: "Gemini",
+            0622: "Cancer",
+            0723: "Leo",
+            0823: "Virgo",
+            0923: "Libra",
+            1024: "Scorpio",
+            1122: "Sagittarius",
+            1221: "Capricorn"
+        };
 
 
 
         document.getElementById("countAnswer").addEventListener("click", function () {
 
-            let month = document.getElementById("monthPicker").value;
-
-            alert(month);
-
+            let input = document.getElementById("input").value;
 
             //count number
-            
+
+            let inputDate = new Date(input);
+            let y = (inputDate.getFullYear()).toString();
+            let m = (inputDate.getMonth() + 1).toString();
+            let d = (inputDate.getDate()).toString();
+
+            let birthday = y + m + d;
+            let constellationDate = m + d;
+
+            let birthdayArray = birthday.split("").map(Number);
+
+            let sumNumber = birthdayArray.reduce((a, b) => a + b);
+            if (sumNumber < 10) {
+                answerNumber = sumNumber;
+            }
+            else {
+                answerNumber = ((sumNumber.toString()).split("").map(Number)).reduce((a, b) => a + b);
+            }
+            console.log(answerNumber);
+            //count starSign
+
+            Object.keys(listStarSign).find(x => {
+                constellationDate > x;
+                constellation = listStarSign[x];
+            });
 
 
             //get response form API
@@ -45,9 +79,9 @@
                     alert(response);
                 }
             });
-            alert(year);
-            alert(month);
-            alert(day);
+
+
+
         })
 
     </script>
