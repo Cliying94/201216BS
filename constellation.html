@@ -24,18 +24,18 @@
         let answerNumber;
         let startdayArray=[];
         let listStarSign = [
-            { startDay:"121", consetallationUnit: "Aquarius" },
-            { startDay:"220", consetallationUnit: "Pieces" },
-            { startDay:"321", consetallationUnit: "Aries" },
-            { startDay:"420", consetallationUnit: "Taurus" },
-            { startDay:"521", consetallationUnit: "Gemini" },
-            { startDay:"622", consetallationUnit: "Cancer" },
-            { startDay:"723", consetallationUnit: "Leo" },
-            { startDay:"823", consetallationUnit: "Virgo" },
-            { startDay:"923", consetallationUnit: "Libra" },
-            { startDay:"1024", consetallationUnit: "Scorpio" },
+            { startDay:"1221", consetallationUnit: "Capricorn" },
             { startDay:"1122", consetallationUnit: "Sagittarius" },
-            { startDay:"1221", consetallationUnit: "Capricorn" }
+            { startDay:"1024", consetallationUnit: "Scorpio" },
+            { startDay:"923", consetallationUnit: "Libra" },
+            { startDay:"823", consetallationUnit: "Virgo" },
+            { startDay:"723", consetallationUnit: "Leo" },
+            { startDay:"622", consetallationUnit: "Cancer" },
+            { startDay:"521", consetallationUnit: "Gemini" },
+            { startDay:"420", consetallationUnit: "Taurus" },
+            { startDay:"321", consetallationUnit: "Aries" },
+            { startDay:"220", consetallationUnit: "Pieces" },
+            { startDay:"121", consetallationUnit: "Aquarius" }
         ];
         listStarSign.forEach(x => {
             startdayArray.push(x.startDay);
@@ -90,7 +90,7 @@
                         constellation = "Capricorn";
                     }
                     else
-                        if (x >= Number(constellationDate)) {
+                        if (Number(constellationDate)>=x) {
                             // const index = listStarSign.map(e => e.startDay).indexOf(x.toString());
                             const index = listStarSign.findIndex(item=>item.startDay == x.toString());
                             
