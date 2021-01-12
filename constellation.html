@@ -22,20 +22,27 @@
 
         let constellation;
         let answerNumber;
-        let listStarSign = {
-            0121: "Aquarius",
-            0220: "Pieces",
-            0321: "Aries",
-            0420: "Taurus",
-            0521: "Gemini",
-            0622: "Cancer",
-            0723: "Leo",
-            0823: "Virgo",
-            0923: "Libra",
-            1024: "Scorpio",
-            1122: "Sagittarius",
-            1221: "Capricorn"
-        };
+        let startdayArray=[];
+        let listStarSign = [
+            { startDay:"121", consetallationUnit: "Aquarius" },
+            { startDay:"220", consetallationUnit: "Pieces" },
+            { startDay:"321", consetallationUnit: "Aries" },
+            { startDay:"420", consetallationUnit: "Taurus" },
+            { startDay:"521", consetallationUnit: "Gemini" },
+            { startDay:"622", consetallationUnit: "Cancer" },
+            { startDay:"723", consetallationUnit: "Leo" },
+            { startDay:"823", consetallationUnit: "Virgo" },
+            { startDay:"923", consetallationUnit: "Libra" },
+            { startDay:"1024", consetallationUnit: "Scorpio" },
+            { startDay:"1122", consetallationUnit: "Sagittarius" },
+            { startDay:"1221", consetallationUnit: "Capricorn" }
+        ];
+        listStarSign.forEach(x => {
+            startdayArray.push(x.startDay);
+            
+        });
+
+
 
 
 
@@ -48,7 +55,7 @@
             let inputDate = new Date(input);
             let y = (inputDate.getFullYear()).toString();
             let m = (inputDate.getMonth() + 1).toString();
-            let d = (inputDate.getDate()).toString();
+            let d = (inputDate.getDate()).toString().padStart(2, "0");
 
             let birthday = y + m + d;
             let constellationDate = m + d;
@@ -60,29 +67,59 @@
                 answerNumber = sumNumber;
             }
             else {
-                answerNumber = ((sumNumber.toString()).split("").map(Number)).reduce((a, b) => a + b);
+                tempAnswerNumber = ((sumNumber.toString()).split("").map(Number)).reduce((a, b) => a + b);
+                if(tempAnswerNumber<10){
+                    answerNumber= tempAnswerNumber;
+                }
+                else{
+                    answerNumber = ((tempAnswerNumber.toString()).split("").map(Number)).reduce((a, b) => a + b);
+
+                }
             }
             console.log(answerNumber);
             //count starSign
 
-            Object.keys(listStarSign).find(x => {
-                constellationDate > x;
-                constellation = listStarSign[x];
-            });
+            getStar(inputDate);
 
+            function getStar(x) {
+
+                startdayArray.find(x => {
+                    x =Number(x);
+
+                    if (Number(constellationDate) > 1222 || Number(constellationDate) < 121) {
+                        constellation = "Capricorn";
+                    }
+                    else
+                        if (x >= Number(constellationDate)) {
+                            // const index = listStarSign.map(e => e.startDay).indexOf(x.toString());
+                            const index = listStarSign.findIndex(item=>item.startDay == x.toString());
+                            
+                            // return index;  
+                            // debugger;        
+                            constellation = listStarSign[index].consetallationUnit;
+                            return constellation;
+                        }
+                }
+                );
+            }
 
             //get response form API
             $.ajax({
                 type: "Get",
                 url: `http://buildschoolapi.azurewebsites.net/api/number/GetNumerology?constellation=${constellation}&number=${answerNumber}`,
                 success: function (response) {
+                    alert(constellation);
                     alert(response);
+
                 }
             });
 
 
 
         })
+
+
+
 
     </script>
 

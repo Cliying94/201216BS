@@ -1,0 +1,19 @@
+.calender {
+
+}
+
+.header {
+    display : flex;
+    background-color: #1852a8;
+}
+button{
+    width: 30px;
+}
+.day{
+    border: 1px #cccccc solid;
+    height: 100px;
+    width: 14.28571%;
+}
+#days_row{
+    margin: 10px;
+}
