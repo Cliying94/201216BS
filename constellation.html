@@ -15,9 +15,12 @@
         <input type="text" id="monthPicker">/
         <input type="text" id="datePicker">/ -->
         <input type="date" name="date" id="input">
-
     </p>
     <button id="countAnswer">Click!</button>
+    <div class="container">
+        <div class="constellation"></div>
+        <div class="story"></div>
+    </div>
     <script>
 
         let constellation;
@@ -108,14 +111,12 @@
                 type: "Get",
                 url: `http://buildschoolapi.azurewebsites.net/api/number/GetNumerology?constellation=${constellation}&number=${answerNumber}`,
                 success: function (response) {
-                    alert(constellation);
-                    alert(response);
+
+                    document.querySelector(".constellation").innerText = constellation;
+                    document.querySelector(".story").innerText = response;
 
                 }
             });
-
-
-
         })
 
 
