@@ -109,7 +109,7 @@
             //get response form API
             $.ajax({
                 type: "Get",
-                url: `http://buildschoolapi.azurewebsites.net/api/number/GetNumerology?constellation=${constellation}&number=${answerNumber}`,
+                url: `https://buildschoolapi.azurewebsites.net/api/number/GetNumerology?constellation=${constellation}&number=${answerNumber}`,
                 success: function (response) {
 
                     document.querySelector(".constellation").innerText = constellation;
